@@ -1,8 +1,11 @@
 #!perl -T
 
-use Test::More tests=>4;
+use warnings;
+use strict;
 
-BEGIN { use_ok( 'Test::Taint' ); }
+use Test::More tests => 3;
+
+use Test::Taint;
 
 my @keys = keys %ENV;
 my $key = shift @keys;
@@ -12,4 +15,3 @@ ok( tainted($ENV{$key}), "\$ENV{$key} is tainted" );
 
 my $foo = 43;
 ok( !tainted($foo), "43 is not tainted" );
-
