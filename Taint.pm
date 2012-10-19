@@ -237,7 +237,7 @@ Returns boolean saying if C<$var> is tainted.
 sub tainted {
     no warnings qw(void uninitialized);
 
-    return !eval { join('', shift), kill 0; 1 };
+    return !eval { local $SIG{__DIE__} = 'DEFAULT'; join('', shift), kill 0; 1 };
 } # tainted
 
 =head2 tainted_deeply( I<$var> )
