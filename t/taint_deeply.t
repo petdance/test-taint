@@ -167,18 +167,18 @@ TAINT_A_SCALAR_OBJECT: {
 
     my $scalar_object = My::ObjectScalar->new;
     isa_ok( $scalar_object, 'My::ObjectScalar' );
-    $$scalar_object = 84;
+    ${$scalar_object} = 84;
 
-    untainted_ok( $$scalar_object, 'Starts clean' );
+    untainted_ok( ${$scalar_object}, 'Starts clean' );
     taint_deeply( $scalar_object );
-    tainted_ok( $$scalar_object, 'Gets dirty' );
-    is( $$scalar_object, 84, 'value stays the same' );
+    tainted_ok( ${$scalar_object}, 'Gets dirty' );
+    is( ${$scalar_object}, 84, 'value stays the same' );
 
-    $$scalar_object =~ /\A(\d+)\z/;
-    $$scalar_object = $1;
+    ${$scalar_object} =~ /\A(\d+)\z/;
+    ${$scalar_object} = $1;
 
-    untainted_ok( $$scalar_object, 'Reclean' );
-    is( $$scalar_object, 84, 'value stays the same' );
+    untainted_ok( ${$scalar_object}, 'Reclean' );
+    is( ${$scalar_object}, 84, 'value stays the same' );
     isa_ok( $scalar_object, 'My::ObjectScalar' );
 }
 
@@ -193,18 +193,18 @@ TAINT_A_REF: {
 
     my $ref_object = My::ObjectRef->new;
     isa_ok( $ref_object, 'My::ObjectRef' );
-    $$ref_object->{key} = 1;
+    ${$ref_object}->{key} = 1;
 
-    untainted_ok( $$ref_object->{key}, 'Starts clean' );
+    untainted_ok( ${$ref_object}->{key}, 'Starts clean' );
     taint_deeply( $ref_object );
-    tainted_ok( $$ref_object->{key}, 'Gets dirty' );
-    is( $$ref_object->{key}, 1, 'value stays the same' );
+    tainted_ok( ${$ref_object}->{key}, 'Gets dirty' );
+    is( ${$ref_object}->{key}, 1, 'value stays the same' );
 
-    $$ref_object->{key} =~ /\A(\d+)\z/;
-    $$ref_object->{key} = $1;
+    ${$ref_object}->{key} =~ /\A(\d+)\z/;
+    ${$ref_object}->{key} = $1;
 
-    untainted_ok( $$ref_object->{key}, 'Reclean' );
-    is( $$ref_object->{key}, 1, 'value stays the same' );
+    untainted_ok( ${$ref_object}->{key}, 'Reclean' );
+    is( ${$ref_object}->{key}, 1, 'value stays the same' );
     isa_ok( $ref_object, 'My::ObjectRef' );
 }
 
@@ -265,18 +265,18 @@ TAINT_A_TIED_SCALAR: {
 
     my $tied_scalar_object = tie my $tied_scalar, 'My::TiedScalar';
 
-    $$tied_scalar_object = 63;
+    ${$tied_scalar_object} = 63;
 
-    untainted_ok( $$tied_scalar_object, 'Starts clean' );
+    untainted_ok( ${$tied_scalar_object}, 'Starts clean' );
     taint_deeply( \$tied_scalar );
-    tainted_ok( $$tied_scalar_object, 'Gets dirty' );
-    is( $$tied_scalar_object, 63, 'value stays the same' );
+    tainted_ok( ${$tied_scalar_object}, 'Gets dirty' );
+    is( ${$tied_scalar_object}, 63, 'value stays the same' );
 
-    $$tied_scalar_object =~ /\A(\d+)\z/;
-    $$tied_scalar_object = $1;
+    ${$tied_scalar_object} =~ /\A(\d+)\z/;
+    ${$tied_scalar_object} = $1;
 
-    untainted_ok( $$tied_scalar_object, 'Reclean' );
-    is( $$tied_scalar_object, 63, 'value stays the same' );
+    untainted_ok( ${$tied_scalar_object}, 'Reclean' );
+    is( ${$tied_scalar_object}, 63, 'value stays the same' );
 }
 
 TAINT_AN_OVERLOADED_OBJECT: {
@@ -287,7 +287,7 @@ TAINT_AN_OVERLOADED_OBJECT: {
 
         sub as_string {
             my $self = shift;
-            return "%$self";
+            return "%{$self}";
         }
     }
 
