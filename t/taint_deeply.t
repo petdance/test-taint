@@ -120,7 +120,7 @@ TAINT_A_TYPEGLOB: {
 TAINT_A_HASH_OBJECT: {
     {
         package My::ObjectHash;
-        sub new { bless {} => shift };
+        sub new { return bless {} => shift };
     }
 
     my $hash_object = My::ObjectHash->new;
@@ -143,7 +143,7 @@ TAINT_A_HASH_OBJECT: {
 TAINT_AN_ARRAY_OBJECT: {
     {
         package My::ObjectArray;
-        sub new { bless [] => shift };
+        sub new { return bless [] => shift };
     }
 
     my $array_object = My::ObjectArray->new;
@@ -166,7 +166,7 @@ TAINT_AN_ARRAY_OBJECT: {
 TAINT_A_SCALAR_OBJECT: {
     {
         package My::ObjectScalar;
-        sub new { my $scalar; bless \$scalar => shift };
+        sub new { my $scalar; return bless \$scalar => shift };
     }
 
     my $scalar_object = My::ObjectScalar->new;
@@ -191,7 +191,7 @@ TAINT_A_REF: {
         package My::ObjectRef;
         sub new {
             my $ref = \my %hash;;
-            bless \$ref, => shift;
+            return bless \$ref, => shift;
          };
     }
 
