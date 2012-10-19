@@ -20,7 +20,7 @@ TAINT_A_HASH: {
     tainted_ok( $hash{value}, 'Gets dirty' );
     is( $hash{value}, 7, 'value stays the same' );
 
-    $hash{value} =~ /\A(\d+)\z/;
+    $hash{value} =~ /\A(\d+)\z/ or die;
     $hash{value} = $1;
 
     untainted_ok( $hash{value}, 'Reclean' );
@@ -37,7 +37,7 @@ TAINT_AN_ARRAY: {
     tainted_ok( $array[0], 'Gets dirty' );
     is( $array[0], 7, 'value stays the same' );
 
-    $array[0] =~ /\A(\d+)\z/;
+    $array[0] =~ /\A(\d+)\z/ or die;
     $array[0] = $1;
 
     untainted_ok( $array[0], 'Reclean' );
@@ -52,7 +52,7 @@ TAINT_A_SCALAR: {
     tainted_ok( $scalar, 'Gets dirty' );
     is( $scalar, 14, 'value stays the same' );
 
-    $scalar =~ /\A(\d+)\z/;
+    $scalar =~ /\A(\d+)\z/ or die;
     $scalar = $1;
 
     untainted_ok( $scalar, 'Reclean' );
@@ -224,7 +224,7 @@ TAINT_A_TIED_HASH: {
     tainted_ok( $tied_hash_object->{value}, 'Gets dirty' );
     is( $tied_hash_object->{value}, 84, 'value stays the same' );
 
-    $tied_hash_object->{value} =~ /\A(\d+)\z/;
+    $tied_hash_object->{value} =~ /\A(\d+)\z/ or die;
     $tied_hash_object->{value} = $1;
 
     untainted_ok( $tied_hash_object->{value}, 'Reclean' );
@@ -248,7 +248,7 @@ TAINT_A_TIED_ARRAY: {
     tainted_ok( $tied_array_object->[0], 'Gets dirty' );
     is( $tied_array_object->[0], 56, 'value stays the same' );
 
-    $tied_array_object->[0] =~ /\A(\d+)\z/;
+    $tied_array_object->[0] =~ /\A(\d+)\z/ or die;
     $tied_array_object->[0] = $1;
 
     untainted_ok( $tied_array_object->[0], 'Reclean' );
@@ -272,7 +272,7 @@ TAINT_A_TIED_SCALAR: {
     tainted_ok( ${$tied_scalar_object}, 'Gets dirty' );
     is( ${$tied_scalar_object}, 63, 'value stays the same' );
 
-    ${$tied_scalar_object} =~ /\A(\d+)\z/;
+    ${$tied_scalar_object} =~ /\A(\d+)\z/ or die;
     ${$tied_scalar_object} = $1;
 
     untainted_ok( ${$tied_scalar_object}, 'Reclean' );
