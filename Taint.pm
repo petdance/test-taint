@@ -311,6 +311,8 @@ sub taint_deeply {
         sub { taint @_; @_ },
         @_,
     );
+
+    return;
 } # taint_deeply
 
 BEGIN {
@@ -324,7 +326,7 @@ BEGIN {
         last if tainted $TAINT;
 
         # Let's try again. Maybe somebody cleaned those.
-        $TAINT = substr(join("", @ARGV, %ENV), 0, 0);
+        $TAINT = substr(join('', @ARGV, %ENV), 0, 0);
         last if tainted $TAINT;
 
         # If those don't work, go try to open some file from some unsafe
@@ -345,7 +347,7 @@ BEGIN {
     }
 
     # Sanity check
-    die "Our taintbrush should have zero length!" if length $TAINT;
+    die 'Our taintbrush should have zero length!' if length $TAINT;
 }
 
 

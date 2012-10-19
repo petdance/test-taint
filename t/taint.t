@@ -20,7 +20,7 @@ my $foo = 43;
 untainted_ok( $foo, 'Starts clean' );
 taint($foo);
 tainted_ok( $foo, 'Gets dirty' );
-$foo =~ /(\d+)/;
+$foo =~ /(\d+)/ or die;
 $foo = $1;
 untainted_ok( $foo, 'Reclean' );
 
