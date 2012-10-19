@@ -51,7 +51,7 @@ use vars qw( $TAINT );
 my $Test = Test::Builder->new;
 
 use vars qw( @EXPORT );
-@EXPORT = qw( 
+@EXPORT = qw(
     taint             taint_deeply
     tainted           tainted_deeply
     tainted_ok        tainted_ok_deeply
