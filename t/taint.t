@@ -1,5 +1,8 @@
 #!perl -T
 
+use warnings;
+use strict;
+
 BEGIN {
     for($0, $^X) {
         ($_) = /(.*)/;
@@ -9,7 +12,7 @@ BEGIN {
 use Test::More;
 use Test::Taint tests => 10;
 
-use constant VAR => 'VAR';
+use constant VAR => 'VAR'; ## no critic (ValuesAndExpressions::ProhibitConstantPragma)
 
 taint_checking_ok();
 
