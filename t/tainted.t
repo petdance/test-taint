@@ -14,7 +14,7 @@ taint_checking_ok();
 ok( tainted($ENV{$key}), "\$ENV{$key} is tainted" );
 
 my $foo = 43;
-ok( !tainted($foo), "43 is not tainted" );
+ok( !tainted($foo), '43 is not tainted' );
 
 RESET_SIG_DIE: {
     my $counter = 0;
