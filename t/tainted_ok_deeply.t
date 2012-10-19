@@ -11,7 +11,7 @@ my %var = (
     HASH   => { key => 'value' },
     ARRAY  => [ 1..2 ],
     GLOB   => \*DATA,
-    SCALAR => \"can't taint this",
+    SCALAR => \q{u can't taint this},
     REF    => \{ another_key => 1 },
 );
 
