@@ -1,5 +1,7 @@
 #!perl -T
 
+## no critic (Miscellanea::ProhibitTies)
+
 use strict;
 use warnings FATAL => 'all';
 use Test::More;

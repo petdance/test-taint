@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 BEGIN {
-    for($0, $^X) {
+    for($0, $^X) { ## no critic (Variables::ProhibitPunctuationVars)
         ($_) = /(.*)/;
     }
 }
