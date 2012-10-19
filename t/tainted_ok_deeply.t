@@ -7,7 +7,7 @@ use Test::Taint tests => 8;
 
 taint_checking_ok('Taint checking is on');
 
-my %var = (
+my %vars = (
     HASH   => { key => 'value' },
     ARRAY  => [ 1..2 ],
     GLOB   => \*DATA,
@@ -15,7 +15,7 @@ my %var = (
     REF    => \{ another_key => 1 },
 );
 
-while(my($key, $value) = each %var) {
+while(my($key, $value) = each %vars) {
   is(
     ref $value,
     $key,
@@ -23,11 +23,11 @@ while(my($key, $value) = each %var) {
   );
 }
 
-untainted_ok_deeply( \%var, 'Everything should be untainted' );
+untainted_ok_deeply( \%vars, 'Everything should be untainted' );
 
-taint_deeply( \%var );
+taint_deeply( \%vars );
 
-tainted_ok_deeply( \%var, 'Everything should be tainted' );
+tainted_ok_deeply( \%vars, 'Everything should be tainted' );
 
 __DATA__
 i am glob
