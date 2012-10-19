@@ -6,14 +6,12 @@ Test::Taint - Tools to test taintedness
 
 =head1 VERSION
 
-Version 1.04
-
-    $Header: /home/cvs/test-taint/Taint.pm,v 1.16 2004/08/10 03:06:57 andy Exp $
+Version 1.06
 
 =cut
 
 use vars qw( $VERSION );
-$VERSION = "1.04";
+$VERSION = "1.06";
 
 =head1 SYNOPSIS
 
@@ -89,9 +87,9 @@ sub _deeply_traverse {
             or next;
 
         # taint the contents of tied objects
-        if(my $tied = $realtype eq 'HASH'   ? tied %$node : 
+        if(my $tied = $realtype eq 'HASH'   ? tied %$node :
                       $realtype eq 'ARRAY'  ? tied @$node :
-                      $realtype eq 'SCALAR' ? tied $$node : 
+                      $realtype eq 'SCALAR' ? tied $$node :
                       $realtype eq 'REF'    ? tied $$node : undef)  {
             push @stack, $tied;
             next;
