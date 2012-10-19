@@ -27,18 +27,7 @@ functions = open opendir read readline readdir close closedir
 [-RegularExpressions::RequireLineBoundaryMatching]
 
 [Subroutines::RequireArgUnpacking]
-[-Subroutines::ProhibitBuiltinHomonyms]
-# We have plenty of funcs that we know are homonyms, but that's OK
-
-[-TestingAndDebugging::ProhibitNoStrict]
-[-TestingAndDebugging::ProhibitNoWarnings]
-# If I've turned off warnings or strict, I know why I'm doing it.
 
 [-ValuesAndExpressions::ProhibitNoisyQuotes]
 [-ValuesAndExpressions::ProhibitEmptyQuotes]
 [-ValuesAndExpressions::ProhibitMagicNumbers]
-
-
-[-Variables::ProhibitPackageVars]
-[-Variables::ProhibitPunctuationVars]
-
