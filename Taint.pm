@@ -1,5 +1,8 @@
 package Test::Taint;
 
+## no critic (Bangs::ProhibitVagueNames)
+## We're dealing with abstract vars like "$var" in this code.
+
 =head1 NAME
 
 Test::Taint - Tools to test taintedness
@@ -331,9 +334,9 @@ BEGIN {
         for ( qw(/dev/null / . ..), values %INC, $0, $^X ) {
             next unless defined $_;
             if ( open FOO, $_ ) {
-                my $data;
-                if ( defined sysread FOO, $data, 1 ) {
-                    $TAINT = substr( $data, 0, 0 );
+                my $potentially_tainted_data;
+                if ( defined sysread FOO, $potentially_tainted_data, 1 ) {
+                    $TAINT = substr( $potentially_tainted_data, 0, 0 );
                     last if tainted $TAINT;
                 }
             }
