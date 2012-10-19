@@ -331,6 +331,7 @@ BEGIN {
         # (Yes, even reading from /dev/null works!)
         local(*FOO);
         for ( qw(/dev/null / . ..), values %INC, $0, $^X ) {
+            next unless defined $_;
             if ( open FOO, $_ ) {
                 my $data;
                 if ( defined sysread FOO, $data, 1 ) {
