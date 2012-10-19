@@ -203,7 +203,7 @@ variable to make sure they are all not tainted.
 sub untainted_ok_deeply {
     my $var = shift;
     my $msg = shift;
-   
+
     my $ok = !tainted_deeply( $var );
     $Test->ok( $ok, $msg );
 

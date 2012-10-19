@@ -13,7 +13,7 @@ TAINT_A_HASH: {
         unknown => undef,
     );
 
-    $hash{circular} = \%hash; 
+    $hash{circular} = \%hash;
 
     untainted_ok( $hash{value}, 'Starts clean' );
     taint_deeply( \%hash );
@@ -185,7 +185,7 @@ TAINT_A_SCALAR_OBJECT: {
 TAINT_A_REF: {
     {
         package My::ObjectRef;
-        sub new { 
+        sub new {
             my $ref = \my %hash;;
             bless \$ref, => shift;
          };
