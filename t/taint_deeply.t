@@ -1,6 +1,8 @@
 #!perl -T
 
+## Two techniques that are bad in general but necessary in this test.
 ## no critic (Miscellanea::ProhibitTies)
+## no critic (Modules::ProhibitMultiplePackages)
 
 use strict;
 use warnings FATAL => 'all';
@@ -85,20 +87,20 @@ TAINT_A_TYPEGLOB: {
     is( $x[2],  70, 'value stays the same' );
     is( $x[3],  77, 'value stays the same' );
 
-    $x =~ /\A(\d+)\z/;
+    $x =~ /\A(\d+)\z/ or die;
     $x = $1;
 
     untainted_ok( $x, 'Reclean' );
 
     foreach my $value (values %x) {
-        $value =~ /\A(\d+)\z/;
+        $value =~ /\A(\d+)\z/ or die;
         $value = $1;
     }
 
     untainted_ok( $x{$_}, 'Reclean' ) foreach keys %x;
 
     foreach my $element (@x) {
-        $element =~ /\A(\d+)\z/;
+        $element =~ /\A(\d+)\z/ or die;
         $element = $1;
     }
 
@@ -130,7 +132,7 @@ TAINT_A_HASH_OBJECT: {
     tainted_ok( $hash_object->{value}, 'Gets dirty' );
     is( $hash_object->{value}, 84, 'value stays the same' );
 
-    $hash_object->{value} =~ /\A(\d+)\z/;
+    $hash_object->{value} =~ /\A(\d+)\z/ or die;
     $hash_object->{value} = $1;
 
     untainted_ok( $hash_object->{value}, 'Reclean' );
@@ -153,7 +155,7 @@ TAINT_AN_ARRAY_OBJECT: {
     tainted_ok( $array_object->[0], 'Gets dirty' );
     is( $array_object->[0], 84, 'value stays the same' );
 
-    $array_object->[0] =~ /\A(\d+)\z/;
+    $array_object->[0] =~ /\A(\d+)\z/ or die;
     $array_object->[0] = $1;
 
     untainted_ok( $array_object->[0], 'Reclean' );
@@ -176,7 +178,7 @@ TAINT_A_SCALAR_OBJECT: {
     tainted_ok( ${$scalar_object}, 'Gets dirty' );
     is( ${$scalar_object}, 84, 'value stays the same' );
 
-    ${$scalar_object} =~ /\A(\d+)\z/;
+    ${$scalar_object} =~ /\A(\d+)\z/ or die;
     ${$scalar_object} = $1;
 
     untainted_ok( ${$scalar_object}, 'Reclean' );
@@ -202,7 +204,7 @@ TAINT_A_REF: {
     tainted_ok( ${$ref_object}->{key}, 'Gets dirty' );
     is( ${$ref_object}->{key}, 1, 'value stays the same' );
 
-    ${$ref_object}->{key} =~ /\A(\d+)\z/;
+    ${$ref_object}->{key} =~ /\A(\d+)\z/ or die;
     ${$ref_object}->{key} = $1;
 
     untainted_ok( ${$ref_object}->{key}, 'Reclean' );
