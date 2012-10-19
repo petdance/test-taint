@@ -304,7 +304,7 @@ TAINT_AN_OVERLOADED_OBJECT: {
     tainted_ok( $overloaded_object->{value}, 'Gets dirty' );
     is( $overloaded_object->{value}, 99, 'value stays the same' );
 
-    $overloaded_object->{value} =~ /\A(\d+)\z/;
+    $overloaded_object->{value} =~ /\A(\d+)\z/ or die;
     $overloaded_object->{value} = $1;
 
     untainted_ok( $overloaded_object->{value}, 'Reclean' );
