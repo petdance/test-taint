@@ -68,7 +68,7 @@ sub import {
     my $caller = caller;
     no strict 'refs';
     for my $sub ( @EXPORT ) {
-        *{$caller.'::'.$sub} = \&$sub;
+        *{$caller.'::'.$sub} = \&{$sub};
     }
     $Test->exported_to($caller);
     $Test->plan(@_);
@@ -90,10 +90,10 @@ sub _deeply_traverse {
             or next;
 
         # taint the contents of tied objects
-        if(my $tied = $realtype eq 'HASH'   ? tied %$node :
-                      $realtype eq 'ARRAY'  ? tied @$node :
-                      $realtype eq 'SCALAR' ? tied $$node :
-                      $realtype eq 'REF'    ? tied $$node : undef)  {
+        if(my $tied = $realtype eq 'HASH'   ? tied %{$node} :
+                      $realtype eq 'ARRAY'  ? tied @{$node} :
+                      $realtype eq 'SCALAR' ? tied ${$node} :
+                      $realtype eq 'REF'    ? tied ${$node} : undef) {
             push @stack, $tied;
             next;
         }
@@ -104,10 +104,10 @@ sub _deeply_traverse {
 
         # perform an action on the node, then push them on the stack for traversal
         push @stack,
-            $realtype eq 'HASH'   ? $callback->(values %$node) :
-            $realtype eq 'ARRAY'  ? $callback->(@$node)        :
-            $realtype eq 'SCALAR' ? $callback->($$node)        :
-            $realtype eq 'REF'    ? $callback->($$node)        :
+            $realtype eq 'HASH'   ? $callback->(values %{$node}) :
+            $realtype eq 'ARRAY'  ? $callback->(@{$node})        :
+            $realtype eq 'SCALAR' ? $callback->(${$node})        :
+            $realtype eq 'REF'    ? $callback->(${$node})        :
             map $callback->(*$node{$_}), qw(SCALAR ARRAY HASH);   #must be a GLOB
     }
 
