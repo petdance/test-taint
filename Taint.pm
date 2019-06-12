@@ -281,7 +281,7 @@ References can be tainted like any other scalar, but it doesn't make
 sense to, so they will B<not> be tainted by this function.
 
 Some C<tie>d and magical variables may fail to be tainted by this routine,
-try as it may.)
+try as it may.
 
 =cut
 
